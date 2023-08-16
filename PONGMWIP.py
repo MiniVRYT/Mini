@@ -145,6 +145,33 @@ game_font = pygame.font.Font("freesansbold.ttf", 32)
 img = pygame.image.load('ping-pong.png')
 pygame.display.set_icon(img)
 
+# controls 
+down = pygame.K_DOWN
+up = pygame.K_UP
+w = pygame.K_w
+s = pygame.K_s
+inverse = False
+
+def inverse_controls():
+	global down, up, inverse
+	if inverse == False:
+		down = pygame.K_UP
+		up = pygame.K_DOWN
+		w = pygame.K_s
+		s = pygame.K_w
+		inverse = True 
+	elif inverse == True:
+		down = pygame.K_DOWN
+		up = pygame.K_UP
+		w = pygame.K_w
+		s = pygame.K_s
+		inverse = False
+	
+		
+	
+
+
+
 # condition for the game to run
 
 while True:
@@ -156,25 +183,25 @@ while True:
        # rest of the code	
 
 		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_DOWN:
+			if event.key == down:
 				player_speed += 7
-			if event.key == pygame.K_UP:
+			if event.key == up:
 				player_speed -= 7
 		if event.type == pygame.KEYUP:
-			if event.key == pygame.K_DOWN:
+			if event.key == down:
 				player_speed -= 7
-			if event.key == pygame.K_UP:
+			if event.key == up:
 				player_speed += 7
 
 		if event.type == pygame.KEYUP:
-			if event.key == pygame.K_w:
+			if event.key == w:
 				opponent_speed += 7
-			if event.key == pygame.K_s:
+			if event.key == s:
 				opponent_speed -= 7
 		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_s:
+			if event.key == s:
 				opponent_speed += 7
-			if event.key == pygame.K_w:
+			if event.key == w:
 				opponent_speed -= 7
 
 		if event.type == pygame.KEYDOWN:
@@ -185,7 +212,7 @@ while True:
 			if event.key == pygame.K_m:
 				# mutation = random.randint(1,2)
 				# if mutation == 1:
-				mutation_1()
+				inverse_controls()
 
 
 
