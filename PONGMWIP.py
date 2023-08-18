@@ -90,12 +90,27 @@ def overlay_icon(image, pos):
 	arrow_surface.set_alpha(opacity)
 	screen.blit(arrow_surface, pos)
 
-def mutation_1():
+def speed_mutation():
 	global ball_speed_x, ball_speed_y, mutation_1_comp
 	if mutation_1_comp == False:
 		ball_speed_x *= 1.4
 		ball_speed_y *= 1.4
 		mutation_1_comp = True
+
+def inverse_controls():
+	global down, up, inverse, w, s
+	if inverse == False:
+		down = pygame.K_UP
+		up = pygame.K_DOWN
+		w = pygame.K_s
+		s = pygame.K_w
+		inverse = True 
+	elif inverse == True:
+		down = pygame.K_DOWN
+		up = pygame.K_UP
+		w = pygame.K_w
+		s = pygame.K_s
+		inverse = False
 
 
 # normal game set up
@@ -134,6 +149,7 @@ score_time = True
 
 # muation complete 
 mutation_1_comp = False
+mutation_active = True
 
 # text variables
 player_score = 0
@@ -151,24 +167,6 @@ up = pygame.K_UP
 w = pygame.K_w
 s = pygame.K_s
 inverse = False
-
-def inverse_controls():
-	global down, up, inverse
-	if inverse == False:
-		down = pygame.K_UP
-		up = pygame.K_DOWN
-		w = pygame.K_s
-		s = pygame.K_w
-		inverse = True 
-	elif inverse == True:
-		down = pygame.K_DOWN
-		up = pygame.K_UP
-		w = pygame.K_w
-		s = pygame.K_s
-		inverse = False
-	
-		
-	
 
 
 
@@ -208,11 +206,13 @@ while True:
 			if event.key == pygame.K_c:
 				opacity = 255
 
-		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_m:
-				# mutation = random.randint(1,2)
-				# if mutation == 1:
-				inverse_controls()
+	if mutation_active == True:
+		mutation_active == False
+		mutation = random.randint(1,3)
+		if mutation == 1:
+			inverse_controls()
+		if mutation == 2:
+			speed_mutation()
 
 
 
@@ -247,6 +247,9 @@ while True:
 
 	if score_time:
 		mutation_1_comp = False
+		inverse = True
+		mutation_active = True
+		mutation = random.randint(1,3)
 		ball_start()
 
 
