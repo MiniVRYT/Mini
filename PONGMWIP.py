@@ -104,14 +104,22 @@ def inverse_controls():
 		up = pygame.K_DOWN
 		w = pygame.K_s
 		s = pygame.K_w
-		inverse = True 
 	elif inverse == True:
 		down = pygame.K_DOWN
 		up = pygame.K_UP
 		w = pygame.K_w
 		s = pygame.K_s
-		inverse = False
 
+def miniture():
+	global player, opponent, miniture_comp
+	if miniture_comp == False:
+		player.scale_by(0.5)
+		opponent.scale_by(0.5)
+		miniture_comp = True
+	elif miniture_comp == True:
+		player.scale_by(0.5)
+		opponent.scale_by(0.5)
+		miniture_comp = False
 
 # normal game set up
 pygame.mixer.pre_init()
@@ -128,7 +136,7 @@ pygame.display.set_caption('PONG:Reimagined')
 
 ball = pygame.Rect(screen_width/2 - 15, screen_height/2 - 15, 30, 30)
 player = pygame.Rect(screen_width - 20, screen_height/2 - 70, 10, 140)
-opponent = pygame.Rect(10, screen_height/2 - 70, 10, 140)
+opponent = pygame.Rect(20, screen_height/2 - 70, 10, 140)
 
 
 bg_color = pygame.Color(0, 0, 0)
@@ -150,6 +158,7 @@ score_time = True
 # muation complete 
 mutation_1_comp = False
 mutation_active = True
+miniture_comp = True
 
 # text variables
 player_score = 0
@@ -207,12 +216,20 @@ while True:
 				opacity = 255
 
 	if mutation_active == True:
-		mutation_active == False
 		mutation = random.randint(1,3)
 		if mutation == 1:
+			inverse = True
 			inverse_controls()
+			mutation_active = False
 		if mutation == 2:
 			speed_mutation()
+			mutation_active = False
+		if mutation == 3:
+			miniture_comp = False
+			miniture()
+			mutation_active = False
+		print(mutation)
+
 
 
 
@@ -249,7 +266,7 @@ while True:
 		mutation_1_comp = False
 		inverse = True
 		mutation_active = True
-		mutation = random.randint(1,3)
+		miniture_comp = False
 		ball_start()
 
 
